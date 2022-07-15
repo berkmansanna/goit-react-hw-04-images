@@ -1,23 +1,26 @@
-import { Component } from 'react';
+import {useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import s from './Modal.module.css';
-import { useEffect } from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
 
 export const Modal = ({ imgLarge, alt, onClose }) => {
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      onClose();
+const handleKeyDown = useCallback(
+    e => {
+      if (e.code === 'Escape') {
+        onClose();
     }
-  };
-  const handelBackdropClick = e => {
-    if (e.currentTarget === e.target) {
-      onClose();
-    }
-  };
+    },
+    [onClose]
+  );
 
+    const handelBackdropClick = e => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+  
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
