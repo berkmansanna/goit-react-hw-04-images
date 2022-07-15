@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 const modalRoot = document.querySelector('#modal-root');
 
 export const Modal = ({ imgLarge, alt, onClose }) => {
-  const handelKeydown = e => {
+  const handleKeyDown = e => {
     if (e.code === 'Escape') {
       onClose();
     }
@@ -19,11 +19,11 @@ export const Modal = ({ imgLarge, alt, onClose }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('keydown', handelKeydown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
-      document.removeEventListener('keydown', handelKeydown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   return createPortal(
     <div className={s.overlay} onClick={handelBackdropClick}>
